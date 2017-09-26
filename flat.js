@@ -4,8 +4,9 @@ module.exports = function(RED) {
     function flatNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
+        var safe = !config.safe;
         node.on('input', function(msg) {
-            msg.payload = flatten(msg.payload);
+            msg.payload = flatten(msg.payload, {safe: safe});
             node.send(msg);
         });
     }
